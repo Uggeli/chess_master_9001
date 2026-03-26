@@ -1,0 +1,340 @@
+/* Chess Master 9001 — Dark Theme */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: #16213e;
+    border-bottom: 1px solid #0f3460;
+}
+
+.header h1 {
+    font-size: 1.4rem;
+    color: #e94560;
+    font-weight: 600;
+}
+
+.controls button {
+    background: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #533483;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.controls button:hover {
+    background: #533483;
+}
+
+.main-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.left-panel {
+    flex-shrink: 0;
+}
+
+.right-panel {
+    flex: 1;
+    min-width: 320px;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.status-bar {
+    padding: 10px 12px;
+    margin-top: 8px;
+    background: #16213e;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid #0f3460;
+}
+
+.move-history {
+    margin-top: 12px;
+    background: #16213e;
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #0f3460;
+}
+
+.move-history h3 {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+#moveList {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.value-chart {
+    margin-top: 12px;
+    background: #16213e;
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #0f3460;
+}
+
+.value-chart h3 {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.thinking-panel {
+    background: #16213e;
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid #0f3460;
+}
+
+.thinking-panel h3 {
+    font-size: 0.95rem;
+    color: #e94560;
+    margin-bottom: 10px;
+}
+
+.thinking-panel h4 {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+/* Value gauge */
+.value-gauge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.value-gauge .label {
+    font-size: 0.8rem;
+    color: #888;
+    white-space: nowrap;
+}
+
+.gauge-bar {
+    flex: 1;
+    height: 20px;
+    background: #2a2a4a;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.gauge-fill {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    background: #4ecca3;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.value-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    font-weight: bold;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Policy list */
+.policy-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+}
+
+.policy-move {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    min-width: 50px;
+    color: #4ecca3;
+}
+
+.policy-bar-bg {
+    flex: 1;
+    height: 16px;
+    background: #2a2a4a;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.policy-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #533483, #e94560);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.policy-prob {
+    font-family: 'Courier New', monospace;
+    min-width: 40px;
+    text-align: right;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* Two-ply */
+.two-ply-candidate {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #1a1a2e;
+    border-radius: 6px;
+}
+
+.two-ply-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.two-ply-move {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #4ecca3;
+}
+
+.two-ply-q {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.two-ply-best {
+    border-left: 3px solid #e94560;
+}
+
+.two-ply-reply {
+    font-size: 0.8rem;
+    color: #aaa;
+    padding-left: 16px;
+    margin-top: 2px;
+}
+
+.two-ply-reply .reply-move {
+    color: #c0c0c0;
+    font-family: 'Courier New', monospace;
+}
+
+/* Projection */
+.proj-line {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #1a1a2e;
+    border-radius: 6px;
+}
+
+.proj-line-best {
+    border-left: 3px solid #e94560;
+}
+
+.proj-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.proj-root {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #4ecca3;
+}
+
+.proj-score {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.proj-moves {
+    font-size: 0.8rem;
+    color: #aaa;
+    word-break: break-all;
+    margin-top: 4px;
+}
+
+.proj-values {
+    margin-top: 4px;
+    height: 30px;
+}
+
+.muted {
+    color: #555;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.agrees-badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+}
+
+.agrees-yes {
+    background: #1b4332;
+    color: #4ecca3;
+}
+
+.agrees-no {
+    background: #4a1529;
+    color: #e94560;
+}
+
+/* Spinner */
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #555;
+    border-top-color: #e94560;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-thumb { background: #533483; border-radius: 3px; }

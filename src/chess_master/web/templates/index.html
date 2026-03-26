@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Master 9001</title>
+    <link rel="stylesheet" href="/static/css/chessboard-1.0.0.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Chess Master 9001</h1>
+        <div class="controls">
+            <button id="newGameBtn" onclick="newGame()">New Game</button>
+            <button id="flipBtn" onclick="flipBoard()">Flip Board</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-panel">
+            <div id="board" style="width: 480px"></div>
+
+            <div class="status-bar" id="statusBar">Your turn — drag a piece to move</div>
+
+            <div class="move-history" id="moveHistory">
+                <h3>Moves</h3>
+                <div id="moveList"></div>
+            </div>
+
+            <div class="value-chart">
+                <h3>Evaluation</h3>
+                <canvas id="valueChart" width="460" height="100"></canvas>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="thinking-panel">
+                <h3>Bot's Thinking</h3>
+
+                <div class="value-gauge">
+                    <span class="label">Position:</span>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill" id="valueGauge"></div>
+                    </div>
+                    <span class="value-text" id="valueText">0.00</span>
+                </div>
+
+                <div class="section">
+                    <h4>Top Moves</h4>
+                    <div id="policyList"></div>
+                </div>
+            </div>
+
+            <div class="thinking-panel">
+                <h4>Two-Ply Analysis</h4>
+                <div id="twoPlyPanel">
+                    <span class="muted">Play a move to see analysis</span>
+                </div>
+            </div>
+
+            <div class="thinking-panel">
+                <h4>Long-term Projection</h4>
+                <div id="projectionPanel">
+                    <span class="muted">Play a move to see projections</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/chess.min.js"></script>
+    <script src="/static/js/chessboard-1.0.0.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
