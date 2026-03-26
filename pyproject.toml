@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chess-master-9001"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "torch>=2.4",
+    "python-chess",
+    "omegaconf",
+    "tensorboard",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
+notebooks = ["jupyter", "matplotlib", "seaborn", "umap-learn"]
+stockfish = ["stockfish"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "phase_b: Phase B tests (opponent modeling)",
+    "phase_c: Phase C tests (planning)",
+    "phase_d: Phase D tests (learned confidence)",
+    "slow: slow tests (puzzles, self-play)",
+]

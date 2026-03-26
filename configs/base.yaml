@@ -1,0 +1,35 @@
+model:
+  d_model: 256
+  n_layers: 6
+  n_heads: 8
+  d_ff: 1024
+  dropout: 0.1
+  memory_size: 10000
+  retrieval_k: 8
+  retrieval_dim: 128
+  short_term_window: 10
+
+training:
+  lr: 1e-4
+  weight_decay: 1e-5
+  batch_size: 256
+  max_steps: 100000
+  eval_every: 1000
+  checkpoint_every: 5000
+  gradient_clip: 1.0
+  loss_weights:
+    policy: 1.0
+    value: 1.0
+    retrieval: 0.1
+
+data:
+  num_workers: 4
+  stockfish_depth: 16
+
+eval:
+  self_play_games: 100
+  stockfish_eval_positions: 10000
+
+seed: 42
+active_phase: 1
+device: cuda

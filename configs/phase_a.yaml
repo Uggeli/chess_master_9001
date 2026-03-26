@@ -1,0 +1,9 @@
+defaults:
+  - base
+
+data:
+  train_path: data/processed/train.npz
+  val_path: data/processed/val.npz
+
+active_phase: 1
+run_dir: runs/phase_a

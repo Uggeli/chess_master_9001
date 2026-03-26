@@ -1,0 +1,29 @@
+model:
+  d_model: 64
+  n_layers: 2
+  n_heads: 4
+  d_ff: 128
+  dropout: 0.0
+  memory_size: 100
+  retrieval_k: 4
+  retrieval_dim: 32
+  short_term_window: 4
+
+training:
+  lr: 1e-3
+  batch_size: 32
+  max_steps: 100
+  eval_every: 50
+  checkpoint_every: 50
+  gradient_clip: 1.0
+
+data:
+  num_workers: 0
+  stockfish_depth: 8
+  train_path: data/processed/train.npz
+  val_path: ""
+
+seed: 42
+active_phase: 1
+run_dir: runs/debug
+device: cpu

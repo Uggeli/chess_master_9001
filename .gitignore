@@ -1,0 +1,13 @@
+__pycache__/
+.venv/
+runs/
+data/raw/
+data/processed/
+data/memory_stores/
+*.egg-info/
+dist/
+.eggs/
+*.pt
+*.ckpt
+*.pyc
+.ipynb_checkpoints/
