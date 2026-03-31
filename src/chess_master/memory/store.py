@@ -15,7 +15,7 @@ import torch
 import torch.nn.functional as F
 from torch import Tensor
 
-from chess_master.types import MemoryEntry
+from chess_master.chess_master_types import MemoryEntry
 
 
 class MemoryStore:

@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 
 from omegaconf import MISSING
 
-from chess_master.types import Phase
+from chess_master.chess_master_types import Phase
 
 
 @dataclass
@@ -47,7 +47,7 @@ class TrainingConfig:
 @dataclass
 class DataConfig:
     train_path: str = MISSING
-    val_path: str = MISSING
+    val_path: str = ""
     num_workers: int = 4
     stockfish_depth: int = 16
     stockfish_path: str = ""  # empty = use pip-installed default

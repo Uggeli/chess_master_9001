@@ -11,3 +11,5 @@ dist/
 *.ckpt
 *.pyc
 .ipynb_checkpoints/
+.vscode/
+.pytest_cache/

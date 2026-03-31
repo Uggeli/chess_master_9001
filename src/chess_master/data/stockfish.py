@@ -17,14 +17,16 @@ class StockfishLabel:
 class StockfishLabeler:
     """Generate training labels from Stockfish analysis."""
 
-    def __init__(self, path: str = "", depth: int = 16):
+    def __init__(self, path: str = "", depth: int = 16, threads: int = 1, hash_mb: int = 64):
         """Initialize Stockfish engine.
 
         Args:
             path: Path to Stockfish binary. Empty string uses default from pip package.
             depth: Search depth for analysis.
+            threads: Number of Stockfish threads.
+            hash_mb: Hash table size in MB.
         """
-        params = {"Threads": 1, "Hash": 64}
+        params = {"Threads": threads, "Hash": hash_mb}
         if path:
             self.engine = StockfishEngine(path=path, depth=depth, parameters=params)
         else:

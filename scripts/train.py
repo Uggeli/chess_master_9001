@@ -3,6 +3,7 @@
 import argparse
 import logging
 import sys
+from pathlib import Path
 
 import torch
 from omegaconf import OmegaConf
@@ -11,7 +12,7 @@ from torch.utils.data import DataLoader
 from chess_master.config import Config
 from chess_master.model import ChessMaster9001
 from chess_master.training.trainer import Trainer
-from chess_master.types import Phase
+from chess_master.chess_master_types import Phase
 
 
 def parse_args():
@@ -29,11 +30,22 @@ def main():
     args = parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 
-    # Load config
+    # Load config (handle 'defaults' key for base config composition)
     schema = OmegaConf.structured(Config)
     file_conf = OmegaConf.load(args.config)
+
+    # Resolve defaults (e.g. "defaults: [base]" loads configs/base.yaml first)
+    configs_dir = Path(args.config).parent
+    defaults = file_conf.pop("defaults", None)
+    base_confs = []
+    if defaults is not None:
+        for base_name in defaults:
+            base_path = configs_dir / f"{base_name}.yaml"
+            if base_path.exists():
+                base_confs.append(OmegaConf.load(base_path))
+
     cli_conf = OmegaConf.from_dotlist(args.override)
-    config = OmegaConf.merge(schema, file_conf, cli_conf)
+    config = OmegaConf.merge(schema, *base_confs, file_conf, cli_conf)
     config = OmegaConf.to_object(config)
 
     # Set seed

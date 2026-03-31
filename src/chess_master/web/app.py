@@ -18,7 +18,7 @@ from chess_master.model import ChessMaster9001
 from chess_master.planner.projection import ProjectionPlanner
 from chess_master.planner.two_ply import TwoPlyPlanner
 from chess_master.training.callbacks import Checkpointer
-from chess_master.types import Phase
+from chess_master.chess_master_types import Phase
 
 logger = logging.getLogger(__name__)
 

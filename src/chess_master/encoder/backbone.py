@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 
-from chess_master.types import NUM_INPUT_PLANES, BOARD_SIZE
+from chess_master.chess_master_types import NUM_INPUT_PLANES, BOARD_SIZE
 
 
 class PositionalEncoding2D(nn.Module):

@@ -14,6 +14,9 @@ def parse_args():
     parser.add_argument("--max-positions", type=int, default=None, help="Max positions to generate")
     parser.add_argument("--skip-opening", type=int, default=6, help="Skip first N moves per game")
     parser.add_argument("--to-npz", type=str, default=None, help="Also convert to NPZ at this path")
+    parser.add_argument("--num-workers", type=int, default=1, help="Number of parallel Stockfish workers")
+    parser.add_argument("--threads-per-worker", type=int, default=1, help="Stockfish threads per worker")
+    parser.add_argument("--hash-per-worker", type=int, default=64, help="Stockfish hash MB per worker")
     return parser.parse_args()
 
 
@@ -31,6 +34,9 @@ def main():
         max_games=args.max_games,
         max_positions=args.max_positions,
         skip_opening_moves=args.skip_opening,
+        num_workers=args.num_workers,
+        threads_per_worker=args.threads_per_worker,
+        hash_per_worker=args.hash_per_worker,
     )
 
     logging.info(f"Generated {count} positions")

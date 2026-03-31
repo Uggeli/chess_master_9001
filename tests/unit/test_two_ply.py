@@ -7,7 +7,7 @@ import torch
 from chess_master.config import ModelConfig
 from chess_master.model import ChessMaster9001
 from chess_master.planner.two_ply import TwoPlyPlanner
-from chess_master.types import Phase
+from chess_master.chess_master_types import Phase
 
 
 @pytest.fixture

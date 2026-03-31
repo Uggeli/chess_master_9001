@@ -5,7 +5,7 @@ import pytest
 import torch
 
 from chess_master.config import ModelConfig, Config
-from chess_master.types import MemoryEntry
+from chess_master.chess_master_types import MemoryEntry
 
 
 @pytest.fixture

@@ -4,7 +4,7 @@ import chess
 import torch
 
 from chess_master.board.tensor import board_to_tensor, boards_to_tensor
-from chess_master.types import NUM_INPUT_PLANES, BOARD_SIZE
+from chess_master.chess_master_types import NUM_INPUT_PLANES, BOARD_SIZE
 
 
 class TestBoardToTensor:

@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch import Tensor
 
-from chess_master.types import NUM_ACTIONS
+from chess_master.chess_master_types import NUM_ACTIONS
 
 # Direction vectors for queen-like moves (N, NE, E, SE, S, SW, W, NW)
 QUEEN_DIRS = [

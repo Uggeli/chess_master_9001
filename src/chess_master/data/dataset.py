@@ -11,7 +11,7 @@ from torch.utils.data import Dataset
 
 from chess_master.board.tensor import board_to_tensor
 from chess_master.board.moves import move_to_index, legal_move_mask
-from chess_master.types import NUM_ACTIONS
+from chess_master.chess_master_types import NUM_ACTIONS
 
 
 class ChessPositionDataset(Dataset):

@@ -18,7 +18,7 @@ from chess_master.heads.policy import PolicyHead
 from chess_master.heads.value import ValueHead
 from chess_master.memory.hopfield import HopfieldLayer
 from chess_master.merger.learned import LearnedMerger
-from chess_master.types import ModelOutput, Phase
+from chess_master.chess_master_types import ModelOutput, Phase
 
 
 class ChessMaster9001(nn.Module):

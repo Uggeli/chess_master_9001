@@ -11,7 +11,7 @@ from torch import Tensor
 
 from chess_master.board.moves import index_to_move, legal_move_mask, move_to_index
 from chess_master.board.tensor import board_to_tensor
-from chess_master.types import NUM_ACTIONS
+from chess_master.chess_master_types import NUM_ACTIONS
 
 
 class ProjectionPlanner:

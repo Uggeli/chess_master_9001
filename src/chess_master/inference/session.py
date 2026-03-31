@@ -6,7 +6,7 @@ import chess
 import torch
 from torch import Tensor
 
-from chess_master.types import NUM_ACTIONS
+from chess_master.chess_master_types import NUM_ACTIONS
 
 
 @dataclass

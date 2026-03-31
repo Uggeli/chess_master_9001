@@ -27,6 +27,9 @@ pytest tests/unit/test_board_tensor.py -v
 # Run integration tests
 pytest tests/integration/ -v
 
+# Skip slow tests (markers: phase_b, phase_c, phase_d, slow)
+pytest tests/ -v -m "not slow"
+
 # Train (requires data)
 python scripts/train.py --config configs/phase_a.yaml
 
@@ -43,7 +46,7 @@ python scripts/play_game.py --checkpoint <path> --mode self-play
 
 ## Architecture
 
-Phase A is implemented. Phases B-D are scaffolded (empty packages ready).
+All four phases (A-D) are implemented.
 
 ### Data flow
 
@@ -60,15 +63,20 @@ Board (python-chess) → board/tensor.py [B,18,8,8]
 - **Dual projection heads**: policy/value and retrieval projections are separate MLPs on the shared backbone. This prevents policy gradients from collapsing the retrieval embedding geometry.
 - **Perspective convention**: board tensors and evaluation values are always encoded from the side-to-move's perspective. Never mix white-centric and side-to-move conventions.
 - **Action space**: AlphaZero 4672 (73 move types x 64 source squares). Legal moves masked with `-inf` logits.
-- **Memory acts as prior**: trust is controlled by retrieval similarity thresholds, not learned confidence (until Phase D).
+- **Memory acts as prior**: trust is controlled by retrieval similarity thresholds (heuristic merger) or learned confidence (Phase D's `LearnedMerger`).
+- **Phase gating**: `ChessMaster9001` conditionally instantiates components based on `active_phase` — e.g., `OpponentHead` only exists when phase >= B. Guard new components the same way.
+- **Board tensor planes** (18 total): 0-5 current player pieces (P,N,B,R,Q,K), 6-11 opponent pieces, 12-15 castling rights, 16 en passant, 17 side-to-move flag.
 
 ### Module map
 
 - `src/chess_master/model.py` — top-level `ChessMaster9001` nn.Module composing all components
+- `src/chess_master/chess_master_types.py` — shared types: `Phase` enum, `ModelOutput`, `MemoryEntry`, tensor shape constants
 - `src/chess_master/board/` — tensor encoding, move index encoding (4672 action space), utilities
 - `src/chess_master/encoder/` — transformer backbone, dual projection heads, short-term context encoder
 - `src/chess_master/memory/` — Hopfield retrieval layer, memory store (CRUD + persistence), curation
-- `src/chess_master/heads/` — policy head, value head (Phase B: opponent.py, Phase D: confidence.py)
+- `src/chess_master/heads/` — policy, value, opponent (Phase B), confidence (Phase D)
+- `src/chess_master/planner/` — two-ply lookahead (Phase C), multi-step projection planner
+- `src/chess_master/merger/` — heuristic (similarity-threshold) and learned (Phase D confidence-weighted) policy blending
 - `src/chess_master/training/` — losses (policy CE + value MSE + retrieval contrastive), trainer, callbacks (TensorBoard, NaN detection, checkpointing)
 - `src/chess_master/data/` — Stockfish labeler, JSONL/NPZ datasets, PGN pipeline
 - `src/chess_master/inference/` — game session (short-term buffer), player (full inference pipeline)
@@ -80,7 +88,9 @@ OmegaConf dataclass schemas in `config.py`. YAML configs in `configs/`. Hierarch
 
 ## Phased Implementation
 
-- **Phase A** (implemented): One-step predictor — policy/value heads, Hopfield retrieval, supervised by Stockfish
-- **Phase B** (scaffolded): Opponent reply prediction — `heads/opponent.py`
-- **Phase C** (scaffolded): Two-ply expected-value planning — `planner/two_ply.py`, `planner/projection.py`
-- **Phase D** (scaffolded): Learned memory confidence — `heads/confidence.py`, `merger/learned.py`
+All phases are implemented. The `active_phase` config controls which components are instantiated at runtime.
+
+- **Phase A**: One-step predictor — policy/value heads, Hopfield retrieval, supervised by Stockfish
+- **Phase B**: Opponent reply prediction — `heads/opponent.py`
+- **Phase C**: Two-ply expected-value planning — `planner/two_ply.py`, `planner/projection.py`
+- **Phase D**: Learned memory confidence — `heads/confidence.py`, `merger/learned.py`

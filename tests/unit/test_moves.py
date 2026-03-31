@@ -4,7 +4,7 @@ import chess
 import torch
 
 from chess_master.board.moves import move_to_index, index_to_move, legal_move_mask
-from chess_master.types import NUM_ACTIONS
+from chess_master.chess_master_types import NUM_ACTIONS
 
 
 class TestMoveEncoding:

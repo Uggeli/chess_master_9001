@@ -5,7 +5,7 @@ import tempfile
 import torch
 
 from chess_master.memory.store import MemoryStore
-from chess_master.types import MemoryEntry
+from chess_master.chess_master_types import MemoryEntry
 
 
 class TestMemoryStore:

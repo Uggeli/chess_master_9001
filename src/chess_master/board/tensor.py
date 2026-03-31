@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch import Tensor
 
-from chess_master.types import NUM_INPUT_PLANES, BOARD_SIZE
+from chess_master.chess_master_types import NUM_INPUT_PLANES, BOARD_SIZE
 
 # Piece type to plane index mapping (white pieces 0-5, black pieces 6-11)
 PIECE_PLANE = {

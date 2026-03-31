@@ -13,7 +13,7 @@ from chess_master.board.moves import index_to_move, legal_move_mask
 from chess_master.board.utils import game_phase
 from chess_master.config import Config, ModelConfig
 from chess_master.model import ChessMaster9001
-from chess_master.types import NUM_ACTIONS
+from chess_master.chess_master_types import NUM_ACTIONS
 
 
 def parse_args():

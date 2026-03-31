@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from chess_master.config import Config, ModelConfig, LossWeights, TrainingConfig
 from chess_master.model import ChessMaster9001
 from chess_master.training.losses import ChessLoss
-from chess_master.types import NUM_ACTIONS, Phase
+from chess_master.chess_master_types import NUM_ACTIONS, Phase
 
 
 class TestTrainingStep:
